@@ -8,7 +8,7 @@ class Main extends React.Component {
     return (
       <div>
         <Header />
-          <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={Home}/>
       </div>
     );
   }
