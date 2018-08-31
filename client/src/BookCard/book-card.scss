@@ -1,0 +1,43 @@
+.book-cards {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-content: flex-start;
+}
+
+.book-card {
+  width: 20rem;;
+  height: 30rem;
+  background-color: $pr-purple;
+  display: flex;
+  flex-direction: column;
+  margin: 10rem;
+  border-radius: 10px;
+  color: $pr-white;
+  font-weight: bold;
+  border-radius: .3rem;
+
+  &__header {
+    width: 100%;
+    height: 100%;
+    border-radius: .3rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: contrast(1.2);
+  }
+
+  &__info {
+    width: 80%;
+    background-color: $pr-purple;
+    filter: opacity(.9);
+    font-size: 1.8rem;
+    margin: 110% 1.6rem;
+  }
+}
