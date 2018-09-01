@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "build:watch": "webpack -w",
-    "build:prod": "webpack -p"
+    "build:prod": "webpack -p",
+    "ngrok": "ngrok http 8080 -host-header='localhost:8080'"
   },
   "proxy": "http://localhost:8080",
   "author": "Zikelir",

@@ -1,29 +1,18 @@
-.book-cards {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-content: flex-start;
-}
-
 .book-card {
-  width: 20rem;;
-  height: 30rem;
-  background-color: $pr-purple;
+  width: 20rem;
+  background-color: $pr-blue;
   display: flex;
   flex-direction: column;
-  margin: 10rem;
-  border-radius: 10px;
+  margin: $mr-medium;
+  font-size: $fs-medium;
   color: $pr-white;
   font-weight: bold;
-  border-radius: .3rem;
+  border-radius: $base-radius;
 
   &__header {
-    width: 100%;
-    height: 100%;
-    border-radius: .3rem;
+    min-width: 20rem;
+    min-height: 30rem;
+    border-radius: $base-radius $base-radius 0 0;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -31,13 +20,5 @@
     background-position: center;
     background-size: cover;
     filter: contrast(1.2);
-  }
-
-  &__info {
-    width: 80%;
-    background-color: $pr-purple;
-    filter: opacity(.9);
-    font-size: 1.8rem;
-    margin: 110% 1.6rem;
   }
 }
