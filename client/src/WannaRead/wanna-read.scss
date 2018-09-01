@@ -1,4 +1,4 @@
-.currently-reading {
+.wanna-read {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -9,9 +9,9 @@
     font-family: $ff-title;
     padding: 1.6rem;
     &:after {
-      background-color: $se-blue;
+      background-color: $se-green;
       position: absolute;
-      margin: 2.2rem 0 0 20rem;
+      margin: 2.2rem 0 0 16rem;
       width: 4.6rem;
       height: 2.4rem;
       content: '';

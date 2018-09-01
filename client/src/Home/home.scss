@@ -3,19 +3,20 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-bottom: $pd-large;
 
-  &__video {
+  &__separator {
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
-  &__video-frame {
-    // width: 100%;
-    // height: 100%;
-    min-width: 47rem;
-    min-height: 32rem;
+  &__separator-element {
+    width: 4.8rem;
+    height: .8rem;
+    background-color: #fff;
+    margin: 3.2rem;
+    content: '';
   }
 }

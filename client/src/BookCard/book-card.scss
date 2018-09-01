@@ -1,17 +1,16 @@
 .book-card {
-  width: 20rem;
-  background-color: $pr-blue;
+  width: 24rem;
+  height: auto;
   display: flex;
   flex-direction: column;
-  margin: $mr-medium;
-  font-size: $fs-medium;
+  margin-left: $mr-medium;
   color: $pr-white;
   font-weight: bold;
   border-radius: $base-radius;
 
   &__header {
-    min-width: 20rem;
-    min-height: 30rem;
+    min-width: 24rem;
+    min-height: 24rem;
     border-radius: $base-radius $base-radius 0 0;
     display: flex;
     justify-content: center;
@@ -19,6 +18,21 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    filter: contrast(1.2);
+  }
+
+  &__body {
+    display: flex;
+    font-weight: 400;
+    padding: $pd-small;
+    text-align: start;
+    flex-direction: column;
+    font-family: $ff-body;
+    font-size: $fs-medium;
+    border-radius: 0 0 $base-radius $base-radius;
+  }
+
+  &__authors {
+    margin-top: $pd-xs-small;
+    font-size: 1.2rem;
   }
 }
