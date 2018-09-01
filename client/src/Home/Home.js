@@ -1,6 +1,7 @@
 import React from 'react';
 import CurrentlyReading from '../CurrentlyReading/CurrentlyReading.js';
 import WannaRead from '../WannaRead/WannaRead.js';
+import Read from '../Read/Read.js';
 import { getAll } from "../../BooksAPI.js";
 
 class Home extends React.Component {
@@ -20,6 +21,8 @@ class Home extends React.Component {
         <CurrentlyReading allBooks={this.state.allBooks}/>
         <span className="home__separator"><div className="home__separator-element"/></span>
         <WannaRead allBooks={this.state.allBooks}/>
+        <span className="home__separator"><div className="home__separator-element"/></span>
+        <Read allBooks={this.state.allBooks}/>
       </div>
     );
   }
