@@ -11,7 +11,7 @@ class WannaRead extends React.Component {
             allBooks.map(
               item =>
                 item.shelf === "wantToRead" && (
-                  <BookCard allBooks={item} categoryColor={'#005744'}/>
+                  <BookCard allBooks={item} categoryColor={'#005744'}  key={item.title}/>
                 )
             )}
         </div>

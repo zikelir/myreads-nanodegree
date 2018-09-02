@@ -11,7 +11,7 @@ class CurrentlyReading extends React.Component {
             allBooks.map(
               item =>
                 item.shelf === "read" && (
-                  <BookCard allBooks={item} categoryColor={'#b33939'}/>
+                  <BookCard allBooks={item} categoryColor={'#b33939'}  key={item.title}/>
                 )
             )}
         </div>

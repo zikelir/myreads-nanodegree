@@ -19,9 +19,9 @@ class Home extends React.Component {
     return (
       <div className="home">
         <CurrentlyReading allBooks={this.state.allBooks}/>
-        <span className="home__separator"><div className="home__separator-element"/></span>
+        {/* <span className="home__separator"><div className="home__separator-element"/></span> */}
         <WannaRead allBooks={this.state.allBooks}/>
-        <span className="home__separator"><div className="home__separator-element"/></span>
+        {/* <span className="home__separator"><div className="home__separator-element"/></span> */}
         <Read allBooks={this.state.allBooks}/>
       </div>
     );

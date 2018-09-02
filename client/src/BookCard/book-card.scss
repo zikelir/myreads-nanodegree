@@ -3,7 +3,8 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-left: $mr-medium;
+  margin: $mr-medium;
+  margin-top: $mr-small;
   color: $pr-white;
   font-weight: bold;
   border-radius: $base-radius;
@@ -18,6 +19,25 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    z-index: -1;
+    filter: opacity(1.2);
+  }
+
+  &__button {
+    background-color: $se-black;
+    background-image: url('../dist/images/edit.svg');
+    position: relative;
+    background-repeat: no-repeat;
+    min-width: 1.6rem;
+    min-height: 1.6rem;
+    padding: $pd-medium;
+    background-size: 2rem;
+    border-radius: 50%;
+    background-position: center;
+    z-index: 10;
+    top: -18rem;
+    right: -8rem;
+    filter: opacity(.8);
   }
 
   &__body {
