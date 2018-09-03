@@ -19,7 +19,6 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    // z-index: -1;
     filter: opacity(1.2);
   }
 
@@ -42,6 +41,10 @@
     filter: opacity(.9);
     -webkit-appearance: none;
     z-index: 20;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__body {
