@@ -3,7 +3,18 @@ import React from "react";
 class BookCard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = { value: "" };
   }
+
+  handleChange = event => {
+    this.setState({ value: event.target.value });
+  };
+
+  handleSubmit = event => {
+    alert("Your favorite flavor is: " + this.state.value);
+    event.preventDefault();
+  };
 
   render() {
     const { allBooks, categoryColor } = this.props;
@@ -13,7 +24,13 @@ class BookCard extends React.Component {
           className="book-card__header"
           style={{ backgroundImage: `URL(${allBooks.imageLinks.thumbnail})` }}
         >
-          <div className="book-card__button" />
+        <select className="book-card__button" value={this.state.value}>
+            <option value="" disabled><i>Move to...</i></option>
+            <option value="CurrentlyReading">Currently Reading</option>
+            <option value="WantToRead">Want to read</option>
+            <option value="Read">Read</option>
+            <option value="None">No category</option>
+        </select>
         </div>
         <div
           className="book-card__body"

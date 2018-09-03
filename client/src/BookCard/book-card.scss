@@ -19,25 +19,29 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    z-index: -1;
+    // z-index: -1;
     filter: opacity(1.2);
   }
 
   &__button {
     background-color: $se-black;
+    color: $pr-white;
+    border: none;
     background-image: url('../dist/images/edit.svg');
     position: relative;
     background-repeat: no-repeat;
-    min-width: 1.6rem;
-    min-height: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
     padding: $pd-medium;
     background-size: 2rem;
     border-radius: 50%;
     background-position: center;
     z-index: 10;
-    top: -18rem;
-    right: -8rem;
-    filter: opacity(.8);
+    top: -20rem;
+    right: -9rem;
+    filter: opacity(.9);
+    -webkit-appearance: none;
+    z-index: 20;
   }
 
   &__body {
@@ -49,6 +53,7 @@
     font-family: $ff-body;
     font-size: $fs-medium;
     border-radius: 0 0 $base-radius $base-radius;
+    z-index: -1;
   }
 
   &__authors {
