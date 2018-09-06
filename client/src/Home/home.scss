@@ -4,21 +4,6 @@
   justify-content: center;
   flex-direction: column;
   padding-bottom: $pd-large;
-
-  &__separator {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__separator-element {
-    width: 4.8rem;
-    height: .8rem;
-    background-color: #fff;
-    margin: 3.2rem;
-    content: '';
-  }
 }
 
 .book-cards {
