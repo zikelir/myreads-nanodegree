@@ -10,31 +10,82 @@ class Home extends React.Component {
 
     this.state = {
       allBooks: [],
+      currentlyReading: [],
+      wantToRead: [],
+      read: [],
     };
   }
 
   componentDidMount() {
     getAll().then(response => {
       this.setState({ allBooks: response });
+      this.composeBooks(response);
     });
   }
 
-  updateBook = (book, shelf) => {
-    update(book, shelf).then(response => {
-      const { allBooks } = this.state;
-      const bookIndex = allBooks.findIndex(() => { book.id === response; });
-      console.log(bookIndex);
+  composeBooks(books) {
+    const currentlyReading = [];
+    const wantToRead = [];
+    const read = [];
+
+    books.map(item => {
+      if(item.shelf === 'currentlyReading') {
+        currentlyReading.push(item);
+      }
+      if(item.shelf === 'wantToRead') {
+        wantToRead.push(item);
+      }
+      if(item.shelf === 'read') {
+        wantToRead.push(item);
+      }
+    });
+    this.setState({ currentlyReading, read, wantToRead });
+  }
+
+  updateCurrentShelf = (book) => {
+    const shelf = book.shelf;
+    const currentShelfCopy = this.state[shelf];
+    console.log(book);
+    // const idx = currentShelfCopy.indexOf(book);
+    // console.log(idx, 'idxxxx');
+    // if (idx > -1) {
+    //   return currentShelfCopy.splice(idx, 1);
+    // }
+    const newarr = currentShelfCopy.filter(item => {
+      return item === book.id;
+    });
+    console.log(currentShelfCopy, newarr);
+    this.setState({ currentShelfCopy });
+  };
+
+  updateNewShelf = (book, newShelf) => {
+    const newShelfCopy = this.state[newShelf];
+    newShelfCopy.push(book);
+    this.setState({newShelfCopy});
+  }
+
+  updateBook = (book, newShelf) => {
+    update(book, newShelf).then(response => {
+      // this.updateNewShelf(book, newShelf);
+      // this.updateCurrentShelf(book);
+      console.log(response);
+    }).then(() => {
+      this.updateCurrentShelf(book);
+    }).then(() => {
+      this.updateNewShelf(book, newShelf);
+    }).catch((err) => {
+      alert('deu ruim', err);
     });
   }
 
   render() {
-    const { allBooks } = this.state;
-    console.log(allBooks);
+    const { allBooks, currentlyReading, wantToRead, read } = this.state;
+    // console.log(allBooks);
     return (
       <div className="home">
-        <CurrentlyReading allBooks={this.state.allBooks} updateBook={this.updateBook}/>
-        <WannaRead allBooks={this.state.allBooks} updateBook={this.updateBook}/>
-        <Read allBooks={this.state.allBooks} updateBook={this.updateBook}/>
+        <CurrentlyReading currentlyReading={currentlyReading} updateBook={this.updateBook}/>
+        <WannaRead wantToRead={wantToRead} updateBook={this.updateBook}/>
+        <Read read={read} updateBook={this.updateBook}/>
       </div>
     );
   }

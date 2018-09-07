@@ -2,16 +2,21 @@ import React from "react";
 import BookCard from "../BookCard/BookCard";
 class CurrentlyReading extends React.Component {
   render() {
-    const { allBooks, updateBook } = this.props;
+    const { read, updateBook } = this.props;
     return (
       <div className="read">
         <div className="read__header">Read</div>
         <div className="book-cards">
-          {allBooks &&
-            allBooks.map(
+          {read &&
+            read.map(
               item =>
                 item.shelf === "read" && (
-                  <BookCard book={item} categoryColor={'#b33939'}  key={item.id} updateBook={updateBook} />
+                  <BookCard
+                    book={item}
+                    categoryColor={"#b33939"}
+                    key={item.id}
+                    updateBook={updateBook}
+                  />
                 )
             )}
         </div>
