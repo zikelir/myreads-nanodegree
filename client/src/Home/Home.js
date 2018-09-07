@@ -43,6 +43,10 @@ class Home extends React.Component {
   }
 
   updateShelf = (book, newShelf) => {
+    if(book.shelf === newShelf || !newShelf) {
+      alert('IM SORRY BUT CANT DO THAT');
+      return;
+    }
     const newShelfCopy = this.state[newShelf];
     newShelfCopy.push(book);
 
@@ -52,6 +56,7 @@ class Home extends React.Component {
     const pastShelf = currentShelfCopy.filter(item => {
       return item.id !== book.id;
     });
+
     this.setState({ [newShelf]: newShelfCopy, [currShelf]: pastShelf});
   }
 
