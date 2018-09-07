@@ -42,45 +42,30 @@ class Home extends React.Component {
     this.setState({ currentlyReading, read, wantToRead });
   }
 
-  updateCurrentShelf = (book) => {
-    const shelf = book.shelf;
-    const currentShelfCopy = this.state[shelf];
-    console.log(book);
-    // const idx = currentShelfCopy.indexOf(book);
-    // console.log(idx, 'idxxxx');
-    // if (idx > -1) {
-    //   return currentShelfCopy.splice(idx, 1);
-    // }
-    const newarr = currentShelfCopy.filter(item => {
-      return item === book.id;
-    });
-    console.log(currentShelfCopy, newarr);
-    this.setState({ currentShelfCopy });
-  };
-
-  updateNewShelf = (book, newShelf) => {
+  updateShelf = (book, newShelf) => {
     const newShelfCopy = this.state[newShelf];
     newShelfCopy.push(book);
-    this.setState({newShelfCopy});
+
+    const currShelf = book.shelf; // current book shelf
+    const currentShelfCopy = this.state[currShelf];
+
+    const pastShelf = currentShelfCopy.filter(item => {
+      return item.id !== book.id;
+    });
+    this.setState({ [newShelf]: newShelfCopy, [currShelf]: pastShelf});
   }
 
   updateBook = (book, newShelf) => {
-    update(book, newShelf).then(response => {
-      // this.updateNewShelf(book, newShelf);
-      // this.updateCurrentShelf(book);
-      console.log(response);
-    }).then(() => {
-      this.updateCurrentShelf(book);
-    }).then(() => {
-      this.updateNewShelf(book, newShelf);
+    update(book, newShelf).then(() => {
+      // console.log('curr: ', book.shelf,' new: ', newShelf);
+      this.updateShelf(book, newShelf);
     }).catch((err) => {
       alert('deu ruim', err);
     });
   }
 
   render() {
-    const { allBooks, currentlyReading, wantToRead, read } = this.state;
-    // console.log(allBooks);
+    const { currentlyReading, wantToRead, read } = this.state;
     return (
       <div className="home">
         <CurrentlyReading currentlyReading={currentlyReading} updateBook={this.updateBook}/>

@@ -11,8 +11,8 @@ class BookCard extends React.Component {
           label: '',
         },
         {
-          value: 'Currently Reading',
-          label: 'currentlyReading',
+          value: 'currentlyReading',
+          label: 'Currently Reading',
         },
         {
           value: 'wantToRead',
@@ -22,18 +22,18 @@ class BookCard extends React.Component {
           value: 'read',
           label: 'Read',
         },
-        // {
-        //   value: 'none',
-        //   label: 'Remove'
-        // }
+        {
+          value: '',
+          label: ''
+        }
       ]
     }
   }
 
   updateState = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { book, updateBook } = this.props;
-    console.log(e.target.value);
+    console.log(e.target.value, ' clicked value');
     const clickedItem = e.target.value;
     updateBook(book, clickedItem);
   }
@@ -43,15 +43,15 @@ class BookCard extends React.Component {
     const { options } = this.state;
 
     return (
-      <div className="book-card" key={book.id}>
+      <div className="book-card">
         <div
           className="book-card__header"
           style={{ backgroundImage: `URL(${book.imageLinks.thumbnail})` }}
         >
           <select className="book-card__button" value={this.state.selectedInput}  onChange={(e) => this.updateState(e)}>
               {
-                options.map((option) => {
-                 return <option value={option.value}>{option.label}</option>
+                options.map((option, index) => {
+                 return <option value={option.value} key={index}>{option.label}</option>
                 })
               }
           </select>

@@ -12,8 +12,8 @@ class CurrentlyReading extends React.Component {
               <BookCard
                 book={item}
                 categoryColor={"#273c75"}
-                key={item.id}
                 updateBook={updateBook}
+                key={item.id}
               />
             ))}
         </div>

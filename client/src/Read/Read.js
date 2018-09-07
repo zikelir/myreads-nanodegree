@@ -1,6 +1,6 @@
 import React from "react";
 import BookCard from "../BookCard/BookCard";
-class CurrentlyReading extends React.Component {
+class Read extends React.Component {
   render() {
     const { read, updateBook } = this.props;
     return (
@@ -14,8 +14,8 @@ class CurrentlyReading extends React.Component {
                   <BookCard
                     book={item}
                     categoryColor={"#b33939"}
-                    key={item.id}
                     updateBook={updateBook}
+                    key={item.id}
                   />
                 )
             )}
@@ -25,4 +25,4 @@ class CurrentlyReading extends React.Component {
   }
 }
 
-export default CurrentlyReading;
+export default Read;

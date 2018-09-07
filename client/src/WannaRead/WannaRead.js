@@ -12,8 +12,8 @@ class WannaRead extends React.Component {
               <BookCard
                 book={item}
                 categoryColor={"#005744"}
-                key={item.id}
                 updateBook={updateBook}
+                key={item.id}
               />
             ))}
         </div>
