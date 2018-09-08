@@ -4,39 +4,30 @@ class BookCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedInput: '',
+      selectedInput: "",
       options: [
         {
-          value: '',
-          label: '',
+          value: "currentlyReading",
+          label: "Currently Reading"
         },
         {
-          value: 'currentlyReading',
-          label: 'Currently Reading',
+          value: "wantToRead",
+          label: "Want To Read"
         },
         {
-          value: 'wantToRead',
-          label: 'Want To Read',
-        },
-       {
-          value: 'read',
-          label: 'Read',
-        },
-        {
-          value: '',
-          label: ''
+          value: "read",
+          label: "Read"
         }
       ]
-    }
+    };
   }
 
-  updateState = (e) => {
-    // e.preventDefault();
+  updateState = e => {
+    e.preventDefault();
     const { book, updateBook } = this.props;
-    console.log(e.target.value, ' clicked value');
     const clickedItem = e.target.value;
     updateBook(book, clickedItem);
-  }
+  };
 
   render() {
     const { book, categoryColor } = this.props;
@@ -48,12 +39,19 @@ class BookCard extends React.Component {
           className="book-card__header"
           style={{ backgroundImage: `URL(${book.imageLinks.thumbnail})` }}
         >
-          <select className="book-card__button" value={this.state.selectedInput}  onChange={(e) => this.updateState(e)}>
-              {
-                options.map((option, index) => {
-                 return <option value={option.value} key={index}>{option.label}</option>
-                })
-              }
+          <select
+            className="book-card__button"
+            value={this.state.selectedInput}
+            onChange={e => this.updateState(e)}
+          >
+          <option value="" disabled>Move to...</option>
+            {options.map((option, index) => {
+              return (
+                <option value={option.value} key={index}>
+                  {option.label}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div

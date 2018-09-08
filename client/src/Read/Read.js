@@ -3,7 +3,6 @@ import BookCard from "../BookCard/BookCard";
 class Read extends React.Component {
   render() {
     const { read, updateBook } = this.props;
-    console.log(read, 'read');
     return (
       <div className="read">
         <div className="read__header">Read</div>

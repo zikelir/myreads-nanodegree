@@ -1,7 +1,7 @@
-import React from 'react';
-import CurrentlyReading from '../CurrentlyReading/CurrentlyReading.js';
-import WannaRead from '../WannaRead/WannaRead.js';
-import Read from '../Read/Read.js';
+import React from "react";
+import CurrentlyReading from "../CurrentlyReading/CurrentlyReading.js";
+import WannaRead from "../WannaRead/WannaRead.js";
+import Read from "../Read/Read.js";
 import { getAll, update } from "../../BooksAPI.js";
 
 class Home extends React.Component {
@@ -9,16 +9,14 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      allBooks: [],
       currentlyReading: [],
       wantToRead: [],
-      read: [],
+      read: []
     };
   }
 
   componentDidMount() {
     getAll().then(response => {
-      this.setState({ allBooks: response });
       this.composeBooks(response);
     });
   }
@@ -29,53 +27,63 @@ class Home extends React.Component {
     const read = [];
 
     books.map(item => {
-      if(item.shelf === 'currentlyReading') {
+      if (item.shelf === "currentlyReading") {
         currentlyReading.push(item);
       }
-      if(item.shelf === 'wantToRead') {
+      if (item.shelf === "wantToRead") {
         wantToRead.push(item);
       }
-      if(item.shelf === 'read') {
-        wantToRead.push(item);
+      if (item.shelf === "read") {
+        read.push(item);
       }
     });
-    this.setState({ currentlyReading, read, wantToRead });
+
+    this.setState({ currentlyReading, wantToRead, read });
   }
 
-  updateShelf = (book, newShelf) => {
-    if(book.shelf === newShelf || !newShelf) {
-      alert('IM SORRY BUT CANT DO THAT');
-      return;
-    }
+  updateShelf = (bookCopy, currentShelf, newShelf) => {
+    const currentShelfCopy = this.state[currentShelf];
     const newShelfCopy = this.state[newShelf];
-    newShelfCopy.push(book);
 
-    const currShelf = book.shelf; // current book shelf
-    const currentShelfCopy = this.state[currShelf];
+    if (currentShelf !== newShelf) {
+      bookCopy.shelf = newShelf;
+      newShelfCopy.push(bookCopy);
+    }
 
     const pastShelf = currentShelfCopy.filter(item => {
-      return item.id !== book.id;
+      return item.id !== bookCopy.id;
     });
 
-    this.setState({ [newShelf]: newShelfCopy, [currShelf]: pastShelf});
-  }
+    this.setState({ [newShelf]: newShelfCopy, [currentShelf]: pastShelf });
+  };
 
   updateBook = (book, newShelf) => {
-    update(book, newShelf).then(() => {
-      // console.log('curr: ', book.shelf,' new: ', newShelf);
-      this.updateShelf(book, newShelf);
-    }).catch((err) => {
-      alert('deu ruim', err);
-    });
-  }
+    const bookCopy = book;
+    const currentShelf = book.shelf; // current book shelf
+
+    if (currentShelf !== newShelf) {
+      update(bookCopy, newShelf)
+        .then(() => {
+          this.updateShelf(bookCopy, currentShelf, newShelf);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } else {
+      console.log("same shelf");
+    }
+  };
 
   render() {
     const { currentlyReading, wantToRead, read } = this.state;
     return (
       <div className="home">
-        <CurrentlyReading currentlyReading={currentlyReading} updateBook={this.updateBook}/>
-        <WannaRead wantToRead={wantToRead} updateBook={this.updateBook}/>
-        <Read read={read} updateBook={this.updateBook}/>
+        <CurrentlyReading
+          currentlyReading={currentlyReading}
+          updateBook={this.updateBook}
+        />
+        <WannaRead wantToRead={wantToRead} updateBook={this.updateBook} />
+        <Read read={read} updateBook={this.updateBook} />
       </div>
     );
   }
