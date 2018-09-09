@@ -13,23 +13,23 @@ const shelfs = {
   wantToRead: {
     books: [],
     component: {
-      shelfLabel: 'Read',
-    },
-    css: {
-      blockClass: 'read',
-      headerClass: 'read__header',
-      categoryColor: '#b33939',
-    },
-  },
-  read: {
-    books: [],
-    component: {
       shelfLabel: 'Want to Read',
     },
     css: {
       blockClass: 'wanna-read',
       headerClass: 'wanna-read__header',
       categoryColor: '#005744',
+    },
+  },
+  read: {
+    books: [],
+    component: {
+      shelfLabel: 'Read',
+    },
+    css: {
+      blockClass: 'read',
+      headerClass: 'read__header',
+      categoryColor: '#b33939',
     },
   },
   none: {

@@ -35,7 +35,7 @@ class BookCard extends React.Component {
 
   render() {
     const { book, categoryColor } = this.props;
-    const { options } = this.state;
+    const { options, selectedInput } = this.state;
     return (
       <div className="book-card">
         <div
@@ -44,12 +44,12 @@ class BookCard extends React.Component {
         >
           <select
             className="book-card__button"
-            value={this.state.selectedInput}
+            value={selectedInput}
             onChange={e => this.updateState(e)}
           >
             <option value="" disabled>Move to...</option>
-            {options.map((option, index) => (
-              <option value={option.value} key={index}>
+            {options.map(option => (
+              <option value={option.value}>
                 {option.label}
               </option>
             ))}

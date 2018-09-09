@@ -36,16 +36,18 @@ class Main extends React.Component {
     }
   };
 
-  updateShelf = (bookCopy, currentShelf, newShelf) => {
+  updateShelf = (book, currentShelf, newShelf) => {
     const currentShelfCopy = this.state[currentShelf];
     const newShelfCopy = this.state[newShelf];
+    const bookCopy = book;
 
     if (currentShelf !== newShelf) {
       bookCopy.shelf = newShelf;
-      newShelfCopy.push(bookCopy);
+      newShelfCopy.books.push(bookCopy);
     }
 
-    const pastShelf = currentShelfCopy.filter(item => item.id !== bookCopy.id);
+    currentShelfCopy.books = currentShelfCopy.books.filter(item => item.id !== bookCopy.id);
+    const pastShelf = currentShelfCopy;
 
     this.setState({ [newShelf]: newShelfCopy, [currentShelf]: pastShelf });
   };
