@@ -1,0 +1,66 @@
+.currently-reading, .wanna-read, .read {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  &__header {
+    display: flex;
+    font-size: 3.6rem;
+    font-family: $ff-title;
+    padding: 1.6rem;
+    padding-bottom: 0rem;
+  }
+}
+
+.currently-reading {
+  &__header {
+    &:after {
+      background-color: $se-blue;
+      position: absolute;
+      margin: 2.2rem 0 0 20rem;
+      width: 4.6rem;
+      height: 2.4rem;
+      content: '';
+      z-index: -1;
+     }
+  }
+}
+
+.wanna-read {
+  &__header {
+    &:after {
+      background-color: $se-green;
+      position: absolute;
+      margin: 2.2rem 0 0 16rem;
+      width: 4.6rem;
+      height: 2.4rem;
+      content: '';
+      z-index: -1;
+     }
+  }
+}
+
+.read {
+  &__header {
+    &:after {
+      background-color: $se-red;
+      position: absolute;
+      margin: 2.2rem 0 0 4rem;
+      width: 4.6rem;
+      height: 2.4rem;
+      content: '';
+      z-index: -1;
+     }
+  }
+}
+
+
+.book-cards {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-content: flex-start;
+}

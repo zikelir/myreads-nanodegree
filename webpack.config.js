@@ -3,15 +3,15 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './client/src/index.js',
+  entry: './client/src/index.jsx',
   output: {
     path: path.resolve(__dirname, './client/dist/'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devtool: 'cheap-eval-source-map',
   devServer: {
-    contentBase: "./client/dist",
-    historyApiFallback: true
+    contentBase: './client/dist',
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -19,12 +19,12 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.scss$/,
-        use: ['style-loader','css-loader','sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -34,6 +34,6 @@ module.exports = {
         //   name: utils.assetsPath('img/[name].[hash:7].[ext]')
         // }
       },
-    ]
-  }
+    ],
+  },
 };
