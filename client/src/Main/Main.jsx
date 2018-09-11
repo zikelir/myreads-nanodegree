@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from '../Header/Header';
+import Header from '../Header/Header.jsx';
 import Home from '../Home/Home.jsx';
-import Search from '../Search/Search';
+import Search from '../Search/Search.jsx';
 import { getAll, update } from '../../BooksAPI';
 import shelfList from './utils'; // shelfs objects
 
@@ -96,7 +96,7 @@ class Main extends React.Component {
             />
           )}
         />
-        {/* <Route exact path="/search" component={Search} /> */}
+        <Route exact path="/search" component={Search} />
       </div>
     );
   }
