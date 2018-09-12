@@ -2,7 +2,9 @@ import React from 'react';
 
 const Search = (props) => {
   return (
-    <div className="search"> BRITO LINDO</div>
+    <div className="search">
+      <div>Search books</div>
+    </div>
   );
 };
 
