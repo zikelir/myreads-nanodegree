@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class BookCard extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class BookCard extends React.Component {
           >
             <option value="" disabled>Move to...</option>
             {options.map(option => (
-              <option value={option.value}>
+              <option value={option.value} key={option.value}>
                 {option.label}
               </option>
             ))}
@@ -70,5 +71,11 @@ class BookCard extends React.Component {
     );
   }
 }
+
+BookCard.propTypes = {
+  updateBook: PropTypes.func.isRequired,
+  categoryColor: PropTypes.string.isRequired,
+  book: PropTypes.shape({}).isRequired,
+};
 
 export default BookCard;

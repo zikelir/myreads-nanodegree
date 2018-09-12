@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Header = () => (
+const Header = () =>  (
   <div className="header">
     <div className="header__title">My Reads</div>
-    <div className="header__search-button" />
+    <Link to='/search' className="header__search-button" />
   </div>
 );
 

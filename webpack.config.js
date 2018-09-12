@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, './client/dist/'),
     filename: 'bundle.js',
   },
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
     contentBase: './client/dist',
     historyApiFallback: true,

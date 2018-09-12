@@ -1,7 +1,7 @@
 import React from 'react';
 import BookCard from '../BookCard/BookCard.jsx';
 
-const CurrentlyReading = (props) => {
+const Shelf = (props) => {
   const { shelf, updateBook } = props;
   return (
     shelf && (
@@ -23,4 +23,4 @@ const CurrentlyReading = (props) => {
   );
 };
 
-export default CurrentlyReading;
+export default Shelf;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Search = (props) => {
   return (
-    <div className="search">search</div>
+    <div className="search"> BRITO LINDO</div>
   );
 };
 
