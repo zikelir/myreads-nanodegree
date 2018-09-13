@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  flex-direction: row;
+
+  &__header {
+    font-size: $fs-xl-large;
+    padding-right: $pd-medium;
+  }
+
+  &__bar {
+    width: 80%;
+  }
+}

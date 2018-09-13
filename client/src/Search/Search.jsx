@@ -21,9 +21,8 @@ class Search extends React.Component {
     return (
       <div className="search">
         <div />
-        <div>Search books</div>
-        <input type="text" value={query} onChange={this.handleQuery} />
-        {query}
+        <div className="search__header">Search books</div>
+        <input type="text" value={query} onChange={this.handleQuery} className="search__bar" />
       </div>
     );
   }
