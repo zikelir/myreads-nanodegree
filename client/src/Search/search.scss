@@ -1,6 +1,6 @@
 .search {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   &__header {
     font-size: $fs-xl-large;
@@ -8,6 +8,7 @@
   }
 
   &__bar {
-    width: 80%;
+    width: 50%;
+
   }
 }
