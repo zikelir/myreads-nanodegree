@@ -1,41 +1,14 @@
 import React from 'react';
-import escapeRegExp from 'escape-string-regexp';
-import sortBy from 'sort-by';
 import BookCard from '../BookCard/BookCard.jsx';
-import { getAll, search } from '../../BooksAPI';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      query: '',
-      allBooks: [],
-    };
+    this.state = {};
   }
-
-  componentDidMount() {
-    getAll().then((result) => {
-      this.setState({ allBooks: result });
-    });
-  }
-
-  handleQuery = (e) => {
-    e.preventDefault();
-    const typed = e.target.value;
-    this.setState({ query: typed });
-  };
 
   render() {
-    const { query, allBooks } = this.state;
-    let showingBooks;
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i');
-      showingBooks = allBooks.filter(book => match.test(book.title));
-    } else {
-      showingBooks = allBooks;
-    }
-
-    showingBooks.sort(sortBy('title'));
+    const { books, handleQuery, query } = this.props;
 
     return (
       <div className="search">
@@ -45,15 +18,17 @@ class Search extends React.Component {
           type="text"
           placeholder="Search contacts..."
           value={query}
-          onChange={this.handleQuery}
+          onChange={handleQuery}
           className="search__bar"
         />
-        {query.length === 0 || showingBooks.length > 0 ? showingBooks.map(item => (
-          <BookCard
-            book={item}
-            key={item.id}
-          />
-        )) : (<h1>No results found</h1>)}
+        <div className="search__books">
+          {books && query.length > 0 ? books.map(item => (
+            <BookCard
+              book={item}
+              key={item.id}
+            />
+          )) : (<h1></h1>)}
+        </div>
       </div>
     );
   }

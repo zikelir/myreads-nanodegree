@@ -37,11 +37,13 @@ class BookCard extends React.Component {
   render() {
     const { book, categoryColor } = this.props;
     const { options, selectedInput } = this.state;
+
+    const image = book.imageLinks ? book.imageLinks.thumbnail : null;
     return (
       <div className="book-card">
         <div
           className="book-card__header"
-          style={{ backgroundImage: `URL(${book.imageLinks.thumbnail})` }}
+          style={{ backgroundImage: `URL('${image}')` }}
         >
           <select
             className="book-card__button"
@@ -64,7 +66,7 @@ class BookCard extends React.Component {
           <span className="book-card__authors">
             <b>From:</b>
             {' '}
-            <i>{book.authors.map(item => item)}</i>
+            <i>{book.authors ? book.authors.map(item => item) : 'no authors'}</i>
           </span>
         </div>
       </div>
@@ -73,9 +75,9 @@ class BookCard extends React.Component {
 }
 
 BookCard.propTypes = {
-  updateBook: PropTypes.func.isRequired,
-  categoryColor: PropTypes.string.isRequired,
-  book: PropTypes.shape({}).isRequired,
+  // updateBook: PropTypes.func.isRequired,
+  // categoryColor: PropTypes.string.isRequired,
+  // book: PropTypes.shape({}).isRequired,
 };
 
 export default BookCard;

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Header from '../Header/Header.jsx';
 import Home from '../Home/Home.jsx';
 import Search from '../Search/Search.jsx';
-import { getAll, update } from '../../BooksAPI';
+import { getAll, update, search } from '../../BooksAPI';
 import shelfList from './utils'; // shelfs objects
 
 class Main extends React.Component {
@@ -12,6 +12,8 @@ class Main extends React.Component {
 
     this.state = {
       ...shelfList,
+      books: [],
+      query: '',
     };
   }
 
@@ -70,14 +72,30 @@ class Main extends React.Component {
         none.books.push(item);
       }
     });
+
     this.setState({
       currentlyReading, wantToRead, read, none,
     });
   }
 
+  handleQuery = (e) => {
+    e.preventDefault();
+    const typed = e.target.value;
+    this.setState({ query: typed });
+    if(typed.length > 0) {
+      search(typed).then(result => {
+        console.log(result);
+        this.setState({ books: result });
+      }).catch((error) => {
+        console.log(error);
+        this.setState({ books: [{}] });
+      });
+    }
+  };
+
   render() {
     const {
-      currentlyReading, wantToRead, read, none,
+      currentlyReading, wantToRead, read, none, books, query
     } = this.state;
     return (
       <div>
@@ -96,7 +114,18 @@ class Main extends React.Component {
             />
           )}
         />
-        <Route exact path="/search" component={Search} />
+        <Route
+          exact
+          path='/search'
+          render={props => (
+            <Search
+              {...props}
+              books={books}
+              handleQuery={this.handleQuery}
+              query={query}
+            />
+          )}
+        />
       </div>
     );
   }

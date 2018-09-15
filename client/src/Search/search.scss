@@ -9,6 +9,11 @@
 
   &__bar {
     width: 50%;
+  }
 
+  &__books {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

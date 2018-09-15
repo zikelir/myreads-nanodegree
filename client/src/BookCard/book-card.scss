@@ -20,6 +20,10 @@
     background-position: center;
     background-size: cover;
     filter: opacity(1.2);
+    background-color: $pr-white;
+    background-image: url('../dist/images/noimage.svg');
+    content: 'no image!';
+    color: #000;
   }
 
   &__button {
