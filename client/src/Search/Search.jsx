@@ -1,5 +1,7 @@
-import React from "react";
-import { getAll, search } from "../../BooksAPI";
+import React from 'react';
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
+import { getAll, search } from '../../BooksAPI';
 
 class Search extends React.Component {
   constructor(props) {
@@ -7,7 +9,6 @@ class Search extends React.Component {
     this.state = {
       query: '',
       allBooks: [],
-      filtered: '',
     };
   }
 
@@ -20,25 +21,29 @@ class Search extends React.Component {
   handleQuery = (e) => {
     e.preventDefault();
     const typed = e.target.value;
-    this.setState({ query: typed });
-    const auxArr = [];
-    search(typed).then((result) => {
-      const filteredBook = result.filter(item => console.log((item.title === typed), item, typed));
-      auxArr.push(filteredBook);
-      console.log(auxArr);
-      this.setState({ filtered: auxArr });
-    });
+    this.setState({ query: typed.trim() });
   }
 
   render() {
-    const { query, allBooks, filtered } = this.state;
+    const { query, allBooks } = this.state;
+    let showingBooks;
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i');
+      showingBooks = allBooks.filter(book => match.test(book.title));
+    } else {
+      showingBooks = allBooks;
+    }
+
+    showingBooks.sort(sortBy('title'));
+
     return (
       <div className="search">
         <div />
         <div className="search__header">Search books</div>
-        <input type="text" value={query} onChange={this.handleQuery} className="search__bar" />
-        <div>{JSON.stringify(allBooks)}</div>
-        <h1>{JSON.stringify(filtered)}</h1>
+        <input type="text" placeholder="Search contacts..." value={query} onChange={this.handleQuery} className="search__bar" />
+        {
+          showingBooks.map(item => (<h1>{item.title}</h1>))
+        }
       </div>
     );
   }
