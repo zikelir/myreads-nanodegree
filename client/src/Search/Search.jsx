@@ -1,6 +1,7 @@
 import React from 'react';
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
+import BookCard from '../BookCard/BookCard.jsx';
 import { getAll, search } from '../../BooksAPI';
 
 class Search extends React.Component {
@@ -22,7 +23,7 @@ class Search extends React.Component {
     e.preventDefault();
     const typed = e.target.value;
     this.setState({ query: typed.trim() });
-  }
+  };
 
   render() {
     const { query, allBooks } = this.state;
@@ -40,10 +41,19 @@ class Search extends React.Component {
       <div className="search">
         <div />
         <div className="search__header">Search books</div>
-        <input type="text" placeholder="Search contacts..." value={query} onChange={this.handleQuery} className="search__bar" />
-        {
-          showingBooks.map(item => (<h1>{item.title}</h1>))
-        }
+        <input
+          type="text"
+          placeholder="Search contacts..."
+          value={query}
+          onChange={this.handleQuery}
+          className="search__bar"
+        />
+        {query.length === 0 || showingBooks.length > 0 ? showingBooks.map(item => (
+          <BookCard
+            book={item}
+            key={item.id}
+          />
+        )) : 'no results found'}
       </div>
     );
   }
