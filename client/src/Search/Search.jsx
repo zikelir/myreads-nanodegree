@@ -22,7 +22,7 @@ class Search extends React.Component {
   handleQuery = (e) => {
     e.preventDefault();
     const typed = e.target.value;
-    this.setState({ query: typed.trim() });
+    this.setState({ query: typed });
   };
 
   render() {
@@ -53,7 +53,7 @@ class Search extends React.Component {
             book={item}
             key={item.id}
           />
-        )) : 'no results found'}
+        )) : (<h1>No results found</h1>)}
       </div>
     );
   }
