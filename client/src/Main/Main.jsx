@@ -141,6 +141,11 @@ class Main extends React.Component {
             });
             this.setState({ books: mapped });
           }
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none'
+          });
         })
         .then(() => {
           this.setState({
@@ -150,6 +155,11 @@ class Main extends React.Component {
           });
         })
         .catch(error => {
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none'
+          });
           console.log(error);
         });
     }
