@@ -37,7 +37,6 @@ class BookCard extends React.Component {
   render() {
     const { book, categoryColor } = this.props;
     const { options, selectedInput } = this.state;
-
     const image = book.imageLinks ? book.imageLinks.thumbnail : null;
     return (
       <div className="book-card">
@@ -60,7 +59,7 @@ class BookCard extends React.Component {
         </div>
         <div
           className="book-card__body"
-          style={{ backgroundColor: categoryColor }}
+          style={{ backgroundColor: categoryColor || '#5f27cd' }}
         >
           <span>{book.title}</span>
           <span className="book-card__authors">

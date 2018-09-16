@@ -1,10 +1,11 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import Header from '../Header/Header.jsx';
-import Home from '../Home/Home.jsx';
-import Search from '../Search/Search.jsx';
-import { getAll, update, search } from '../../BooksAPI';
-import shelfList from './utils'; // shelfs objects
+import React from "react";
+import { Route } from "react-router-dom";
+import LoadingOverlay from "react-loading-overlay";
+import Header from "../Header/Header.jsx";
+import Home from "../Home/Home.jsx";
+import Search from "../Search/Search.jsx";
+import { getAll, update, search } from "../../BooksAPI";
+import shelfList from "./utils"; // shelfs objects
 
 class Main extends React.Component {
   constructor(props) {
@@ -13,12 +14,28 @@ class Main extends React.Component {
     this.state = {
       ...shelfList,
       books: [],
-      query: '',
+      query: "",
+      activeLoading: false,
+      loadMessage: "",
+      display: 'none',
     };
   }
 
   componentDidMount() {
-    getAll().then(response => this.composeBooks(response));
+    this.setState({
+      activeLoading: true,
+      loadMessage: "Loading the application...",
+      display: 'flex'
+    });
+    getAll()
+      .then(response => this.composeBooks(response))
+      .then(() => {
+        this.setState({ activeLoading: false, loadMessage: "", display: 'none' });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ activeLoading: false, loadMessage: "", display: 'none' });
+      });
   }
 
   updateBook = (book, newShelf) => {
@@ -26,15 +43,32 @@ class Main extends React.Component {
     const currentShelf = book.shelf; // current book shelf
 
     if (currentShelf !== newShelf) {
+      this.setState({
+        activeLoading: true,
+        loadMessage: `Updating your book to: ${newShelf}`,
+        display: 'flex'
+      });
       update(bookCopy, newShelf)
         .then(() => {
           this.updateShelf(bookCopy, currentShelf, newShelf);
+          this.setState({
+            activeLoading: true,
+            loadMessage: `Success on updating book to ${newShelf}`,
+            display: 'flex'
+          });
         })
-        .catch((error) => {
-          console.log('error', error);
+        .then(() => {
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none'
+          });
+        })
+        .catch(error => {
+          console.log("error", error);
         });
     } else {
-      console.log('same shelf');
+      alert("I am sorry but you are trying to move to the same shelf");
     }
   };
 
@@ -48,25 +82,25 @@ class Main extends React.Component {
       newShelfCopy.books.push(bookCopy);
     }
 
-    currentShelfCopy.books = currentShelfCopy.books.filter(item => item.id !== bookCopy.id);
+    currentShelfCopy.books = currentShelfCopy.books.filter(
+      item => item.id !== bookCopy.id
+    );
     const pastShelf = currentShelfCopy;
 
     this.setState({ [newShelf]: newShelfCopy, [currentShelf]: pastShelf });
   };
 
   composeBooks(books) {
-    const {
-      currentlyReading, wantToRead, read, none,
-    } = this.state;
+    const { currentlyReading, wantToRead, read, none } = this.state;
 
-    books.map((item) => {
-      if (item.shelf === 'currentlyReading') {
+    books.map(item => {
+      if (item.shelf === "currentlyReading") {
         currentlyReading.books.push(item);
       }
-      if (item.shelf === 'wantToRead') {
+      if (item.shelf === "wantToRead") {
         wantToRead.books.push(item);
       }
-      if (item.shelf === 'read') {
+      if (item.shelf === "read") {
         read.books.push(item);
       } else {
         none.books.push(item);
@@ -74,35 +108,72 @@ class Main extends React.Component {
     });
 
     this.setState({
-      currentlyReading, wantToRead, read, none,
+      currentlyReading,
+      wantToRead,
+      read,
+      none
     });
   }
 
-  handleQuery = (e) => {
+  handleQuery = e => {
     e.preventDefault();
     const typed = e.target.value;
     this.setState({ query: typed });
-    if(typed.length > 0) {
-      search(typed).then(result => {
-        console.log(result);
-        this.setState({ books: result });
-      }).catch((error) => {
-        console.log(error);
-        this.setState({ books: [{}] });
-      });
+    this.setState({
+      activeLoading: true,
+      loadMessage: "Loading the application...",
+      display: 'flex'
+    });
+
+    if (typed.length > 0) {
+      search(typed)
+        .then(result => {
+          if (result.hasOwnProperty("error")) {
+            this.setState({ books: [] });
+          } else {
+            const mapped = result.map(item => {
+              if (!item.shelf) {
+                item.shelf = "none";
+                return item;
+              } else {
+                return item;
+              }
+            });
+            this.setState({ books: mapped });
+          }
+        })
+        .then(() => {
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none'
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   };
 
   render() {
     const {
-      currentlyReading, wantToRead, read, none, books, query
+      currentlyReading,
+      wantToRead,
+      read,
+      none,
+      books,
+      query,
+      activeLoading,
+      loadMessage,
+      display,
     } = this.state;
     return (
       <div>
+        <LoadingOverlay active={activeLoading} spinner text={loadMessage} style={{width: '100%', minHeight: '100%', height: '100h', zIndex: '100', position: 'absolute', display: display}}/>
         <Header />
         <Route
           exact
-          path='/'
+          path="/"
           render={props => (
             <Home
               {...props}
@@ -116,12 +187,13 @@ class Main extends React.Component {
         />
         <Route
           exact
-          path='/search'
+          path="/search"
           render={props => (
             <Search
               {...props}
               books={books}
               handleQuery={this.handleQuery}
+              updateBook={this.updateBook}
               query={query}
             />
           )}

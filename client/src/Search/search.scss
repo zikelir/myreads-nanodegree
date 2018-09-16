@@ -4,11 +4,23 @@
 
   &__header {
     font-size: $fs-xl-large;
-    padding-right: $pd-medium;
+    padding: 0 $pd-medium;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
   }
 
   &__bar {
-    width: 50%;
+    width: 30%;
+    // margin: 0 $mr-medium;
+    padding: $pd-small;
+    height: $fs-large;
+  }
+
+  &__allowed-terms {
+    font-size: $fs-large;
+    padding: $pd-medium;
   }
 
   &__books {

@@ -1,6 +1,6 @@
 import React from 'react';
 import BookCard from '../BookCard/BookCard.jsx';
-
+import allowedTerms from './allowedTerms';
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -8,26 +8,29 @@ class Search extends React.Component {
   }
 
   render() {
-    const { books, handleQuery, query } = this.props;
-
+    const { books, handleQuery, query, updateBook } = this.props;
+    console.log(books);
     return (
       <div className="search">
-        <div />
-        <div className="search__header">Search books</div>
-        <input
-          type="text"
-          placeholder="Search contacts..."
-          value={query}
-          onChange={handleQuery}
-          className="search__bar"
-        />
+        <div className="search__header">
+          Search books
+          <input
+            type="text"
+            placeholder="Search contacts..."
+            value={query}
+            onChange={handleQuery}
+            className="search__bar"
+          />
+        </div>
+        <div className="search__allowed-terms"><b>Allowed search terms:</b> {allowedTerms.map(item => item + ', ')}</div>
         <div className="search__books">
-          {books && query.length > 0 ? books.map(item => (
+          {(books && query.length > 0) && books.map(item => (
             <BookCard
               book={item}
               key={item.id}
+              updateBook={updateBook}
             />
-          )) : (<h1></h1>)}
+          ))}
         </div>
       </div>
     );
