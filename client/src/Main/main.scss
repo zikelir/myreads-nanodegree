@@ -13,8 +13,9 @@ body {
   overflow-y: scroll;
 }
 
-#root {
-  height: 100%;
-  width: 100%;
+html {
   background-image: linear-gradient(to bottom, $pr-black, $se-black);
+  background-color: $pr-black;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }

@@ -168,8 +168,8 @@ class Main extends React.Component {
       display,
     } = this.state;
     return (
-      <div>
-        <LoadingOverlay active={activeLoading} spinner text={loadMessage} style={{width: '100%', minHeight: '100%', height: '100h', zIndex: '100', position: 'absolute', display: display}}/>
+      <React.Fragment>
+        <LoadingOverlay active={activeLoading} spinner text={loadMessage} style={{width: '100%', minHeight: '150vh', zIndex: '100', position: 'absolute', display: display }}/>
         <Header />
         <Route
           exact
@@ -198,7 +198,7 @@ class Main extends React.Component {
             />
           )}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
