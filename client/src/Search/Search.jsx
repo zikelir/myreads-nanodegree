@@ -9,7 +9,6 @@ class Search extends React.Component {
 
   render() {
     const { books, handleQuery, query, updateBook } = this.props;
-    console.log(books);
     return (
       <div className="search">
         <div className="search__header">
