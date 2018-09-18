@@ -1,4 +1,6 @@
-.currently-reading, .wanna-read, .read {
+.currently-reading,
+.wanna-read,
+.read {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -21,9 +23,9 @@
       margin: 2.2rem 0 0 20rem;
       width: 4.6rem;
       height: 2.4rem;
-      content: '';
+      content: "";
       z-index: -1;
-     }
+    }
   }
 }
 
@@ -35,9 +37,9 @@
       margin: 2.2rem 0 0 16rem;
       width: 4.6rem;
       height: 2.4rem;
-      content: '';
+      content: "";
       z-index: -1;
-     }
+    }
   }
 }
 
@@ -49,12 +51,11 @@
       margin: 2.2rem 0 0 4rem;
       width: 4.6rem;
       height: 2.4rem;
-      content: '';
+      content: "";
       z-index: -1;
-     }
+    }
   }
 }
-
 
 .book-cards {
   width: 100%;

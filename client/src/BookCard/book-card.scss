@@ -21,8 +21,8 @@
     background-size: cover;
     filter: opacity(1.2);
     background-color: $pr-white;
-    background-image: url('../dist/images/noimage.svg');
-    content: 'no image!';
+    background-image: url("../dist/images/noimage.svg");
+    content: "no image!";
     color: #000;
   }
 
@@ -30,7 +30,7 @@
     background-color: $se-black;
     color: $pr-white;
     border: none;
-    background-image: url('../dist/images/edit.svg');
+    background-image: url("../dist/images/edit.svg");
     position: relative;
     background-repeat: no-repeat;
     width: 1.6rem;
@@ -42,7 +42,7 @@
     z-index: 10;
     top: -20rem;
     right: -9rem;
-    filter: opacity(.9);
+    filter: opacity(0.9);
     -webkit-appearance: none;
     z-index: 20;
 
@@ -66,4 +66,48 @@
     margin-top: $pd-xs-small;
     font-size: 1.2rem;
   }
+
+  &__popup {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__popup-open {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    width: $fs-xs-small;
+    height: $fs-xs-small;
+    padding: 1rem;
+    background-color: $pr-black;
+    font-weight: bold;
+    opacity: 0.95;
+    cursor: pointer;
+  }
+
+  &__popup-container {
+    color: $pr-black;
+  }
+
+  &__popup-close {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    width: $fs-xs-small;
+    height: $fs-xs-small;
+    padding: 1rem;
+    background-color: $pr-black;
+    font-weight: bold;
+    opacity: 0.95;
+    cursor: pointer;
+  }
+}
+
+.popup-content {
+  z-index: 20 !important;
+  width: 40% !important;
+  padding: $pd-medium !important;
+  font-size: $fs-medium !important;
 }

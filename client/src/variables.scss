@@ -1,8 +1,8 @@
 // constants
-$base-radius: .4rem;
+$base-radius: 0.4rem;
 
 // colors
-$pr-black: #1D1D1D;
+$pr-black: #1d1d1d;
 $se-black: #131418;
 $pr-white: #fff;
 $se-white: #d4d4d4;
@@ -16,14 +16,14 @@ $pr-green: #16a085;
 $se-green: #005744;
 
 // distances
-$pd-xs-small: .4rem;
-$pd-small: .8rem;
+$pd-xs-small: 0.4rem;
+$pd-small: 0.8rem;
 $pd-medium: 1.6rem;
 $pd-large: 2.4rem;
 $pd-xl-large: 4.8rem;
 
-$mr-xs-small: .4rem;
-$mr-small: .8rem;
+$mr-xs-small: 0.4rem;
+$mr-small: 0.8rem;
 $mr-medium: 1.6rem;
 $mr-large: 2.4rem;
 $mr-xl-large: 4.8rem;
@@ -31,8 +31,8 @@ $mr-xl-large: 4.8rem;
 // fonts
 $ff-title: "Sacramento", cursive;
 $ff-body: "Montserrat";
-$fs-xs-small: .4rem;
-$fs-small: .8rem;
+$fs-xs-small: 0.4rem;
+$fs-small: 0.8rem;
 $fs-medium: 1.6rem;
 $fs-large: 2.4rem;
 $fs-xl-large: 4.8rem;
@@ -41,7 +41,6 @@ $fs-xl-large: 4.8rem;
 html {
   font-size: 62.5%;
 }
-
 
 // mixins
 

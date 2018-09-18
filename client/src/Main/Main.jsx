@@ -21,7 +21,7 @@ class Main extends React.Component {
       display: "none"
     };
   }
-
+  //mount the main component and props
   componentDidMount() {
     this.setState({
       activeLoading: true,
@@ -48,7 +48,7 @@ class Main extends React.Component {
         });
       });
   }
-
+  // calls the api of update to update the book
   updateBook = (book, newShelf) => {
     const bookCopy = book;
     const currentShelf = book.shelf; // current book shelf
@@ -82,7 +82,7 @@ class Main extends React.Component {
       alert("I am sorry but you are trying to move to the same shelf");
     }
   };
-
+  //updates the book's shelf to the selected one from the input value
   updateShelf = (book, currentShelf, newShelf) => {
     const currentShelfCopy = this.state[currentShelf];
     const newShelfCopy = this.state[newShelf];
@@ -100,7 +100,7 @@ class Main extends React.Component {
 
     this.setState({ [newShelf]: newShelfCopy, [currentShelf]: pastShelf });
   };
-
+  //create the object of shelfs for the home page
   composeBooks(books) {
     const { currentlyReading, wantToRead, read, none } = this.state;
     books.forEach(item => {
@@ -122,10 +122,10 @@ class Main extends React.Component {
       wantToRead,
       read,
       none,
-      allBooks: books,
+      allBooks: books
     });
   }
-
+  // function for handling the message from the output
   handleQuery = e => {
     e.preventDefault();
     const typed = e.target.value;
@@ -133,7 +133,7 @@ class Main extends React.Component {
       activeLoading: true,
       loadMessage: "Searching books...",
       display: "flex",
-      query: typed,
+      query: typed
     });
 
     if (typed.length > 0) {
@@ -147,19 +147,18 @@ class Main extends React.Component {
               const wr = this.state.wantToRead.books.map(item => item.id);
               const re = this.state.read.books.map(item => item.id);
               if (cr.includes(item.id)) {
-                item.shelf = 'currentlyReading';
+                item.shelf = "currentlyReading";
                 return item;
               }
               if (wr.includes(item.id)) {
-                item.shelf = 'wantToRead';
+                item.shelf = "wantToRead";
                 return item;
               }
               if (re.includes(item.id)) {
-                item.shelf = 'read';
+                item.shelf = "read";
                 return item;
-              }
-              else {
-                item.shelf = 'none';
+              } else {
+                item.shelf = "none";
                 return item;
               }
             });
@@ -202,9 +201,9 @@ class Main extends React.Component {
           text={loadMessage}
           style={{
             width: "100%",
-            minHeight: "150vh",
+            minHeight: "100%",
             zIndex: "100",
-            position: "absolute",
+            position: "fixed",
             display: display
           }}
         />

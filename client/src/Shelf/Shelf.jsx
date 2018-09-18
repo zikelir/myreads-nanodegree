@@ -1,15 +1,17 @@
-import React from 'react';
-import BookCard from '../BookCard/BookCard.jsx';
+import React from "react";
+import BookCard from "../BookCard/BookCard.jsx";
 
-const Shelf = (props) => {
+const Shelf = props => {
   const { shelf, updateBook } = props;
   return (
     shelf && (
       <div className={shelf.css.blockClass}>
-        <div className={shelf.css.headerClass}>{shelf.component.shelfLabel}</div>
+        <div className={shelf.css.headerClass}>
+          {shelf.component.shelfLabel}
+        </div>
         <div className="book-cards">
-          { shelf.books
-            && shelf.books.map(item => (
+          {shelf.books &&
+            shelf.books.map(item => (
               <BookCard
                 book={item}
                 categoryColor={shelf.css.categoryColor}

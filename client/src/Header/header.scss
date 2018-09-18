@@ -18,7 +18,7 @@
   }
 
   &__search-button {
-    background-image: url('../dist/images/search.svg');
+    background-image: url("../dist/images/search.svg");
     background-repeat: no-repeat;
     width: 4.1rem;
     height: 4.1rem;
@@ -28,7 +28,7 @@
   }
 
   &__home-button {
-    background-image: url('../dist/images/home.svg');
+    background-image: url("../dist/images/home.svg");
     background-repeat: no-repeat;
     width: 4.1rem;
     height: 4.1rem;
@@ -36,5 +36,4 @@
     background-position: center;
     margin-right: 1.6rem;
   }
-
 }
