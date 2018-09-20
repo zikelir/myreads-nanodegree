@@ -92,7 +92,7 @@ class BookCard extends React.Component {
           <div className="book-card__popup">
             <Popup
               trigger={<div className="book-card__popup-open">i</div>}
-              position="center center"
+              position="center right"
             >
               <div className="book-card__popup-container">
                 <span>Book Summary</span>

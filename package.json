@@ -4,8 +4,8 @@
   "description": "location project",
   "main": "./server/server.js",
   "scripts": {
-    "start": "node ./server/server.js",
-    "dev": "webpack-dev-server --mode development --open",
+    "start:prod": "node ./server/server.js",
+    "start": "webpack-dev-server --mode development --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "build:watch": "webpack -w",
