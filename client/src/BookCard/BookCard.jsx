@@ -121,10 +121,10 @@ class BookCard extends React.Component {
                     Number of pages:{" "}
                     {book.pageCount ? book.pageCount : "Not provided"}
                   </li>
-                  <li>
+                  {/* <li>
                     Description:{" "}
                     {book.description ? book.description : "No language"}
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </Popup>
