@@ -1,11 +1,11 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import LoadingOverlay from "react-loading-overlay";
-import Header from "../Header/Header.jsx";
-import Home from "../Home/Home.jsx";
-import Search from "../Search/Search.jsx";
-import { getAll, update, search } from "../../BooksAPI";
-import shelfList from "./utils"; // shelfs objects
+import React from 'react';
+import { Route } from 'react-router-dom';
+import LoadingOverlay from 'react-loading-overlay';
+import Header from '../Header/Header';
+import Home from '../Home/Home';
+import Search from '../Search/Search';
+import { getAll, update, search } from '../../BooksAPI';
+import shelfList from './utils'; // shelfs objects
 
 class Main extends React.Component {
   constructor(props) {
@@ -15,40 +15,44 @@ class Main extends React.Component {
       ...shelfList,
       allBooks: [],
       searchedBooks: [],
-      query: "",
+      query: '',
       activeLoading: false,
-      loadMessage: "",
-      display: "none"
+      loadMessage: '',
+      display: 'none',
     };
   }
-  //mount the main component and props
+
+  // mount the main component and props
+
   componentDidMount() {
     this.setState({
       activeLoading: true,
-      loadMessage: "Loading the application...",
-      display: "flex"
+      loadMessage: 'Loading the application...',
+      display: 'flex',
     });
     getAll()
-      .then(response => {
+      .then((response) => {
         this.composeBooks(response);
       })
       .then(() => {
         this.setState({
           activeLoading: false,
-          loadMessage: "",
-          display: "none"
+          loadMessage: '',
+          display: 'none',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({
           activeLoading: false,
-          loadMessage: "",
-          display: "none"
+          loadMessage: '',
+          display: 'none',
         });
       });
   }
+
   // calls the api of update to update the book
+
   updateBook = (book, newShelf) => {
     const bookCopy = book;
     const currentShelf = book.shelf; // current book shelf
@@ -57,7 +61,7 @@ class Main extends React.Component {
       this.setState({
         activeLoading: true,
         loadMessage: `Updating your book to: ${newShelf}`,
-        display: "flex"
+        display: 'flex',
       });
       update(bookCopy, newShelf)
         .then(() => {
@@ -65,24 +69,26 @@ class Main extends React.Component {
           this.setState({
             activeLoading: true,
             loadMessage: `Success on updating book to ${newShelf}`,
-            display: "flex"
+            display: 'flex',
           });
         })
         .then(() => {
           this.setState({
             activeLoading: false,
-            loadMessage: "",
-            display: "none"
+            loadMessage: '',
+            display: 'none',
           });
         })
-        .catch(error => {
-          console.log("error", error);
+        .catch((error) => {
+          console.log('error', error);
         });
     } else {
-      alert("I am sorry but you are trying to move to the same shelf");
+      alert('I am sorry but you are trying to move to the same shelf');
     }
   };
-  //updates the book's shelf to the selected one from the input value
+
+  // updates the book's shelf to the selected one from the input value
+
   updateShelf = (book, currentShelf, newShelf) => {
     const currentShelfCopy = this.state[currentShelf];
     const newShelfCopy = this.state[newShelf];
@@ -100,17 +106,85 @@ class Main extends React.Component {
 
     this.setState({ [newShelf]: newShelfCopy, [currentShelf]: pastShelf });
   };
-  //create the object of shelfs for the home page
+
+  // function for handling the message from the output
+  handleQuery = (e) => {
+    // e.preventDefault();
+    const typed = e.target.value;
+    this.setState({
+      activeLoading: true,
+      loadMessage: 'Searching books...',
+      display: 'flex',
+      query: typed,
+    });
+
+    if (typed.length > 0) {
+      search(typed)
+        .then((result) => {
+          if (result.hasOwnProperty('error')) {
+            this.setState({ searchedBooks: [] });
+          } else {
+            const mapped = result.map((item) => {
+              const { currentlyReading, wantToRead, read } = this.state;
+              const cr = currentlyReading.books.map(crItem => crItem.id);
+              const wr = wantToRead.books.map(wrItem => wrItem.id);
+              const re = read.books.map(reItem => reItem.id);
+              if (cr.includes(item.id)) {
+                item.shelf = 'currentlyReading';
+                return item;
+              }
+              if (wr.includes(item.id)) {
+                item.shelf = 'wantToRead';
+                return item;
+              }
+              if (re.includes(item.id)) {
+                item.shelf = 'read';
+                return item;
+              } else {
+                item.shelf = 'none';
+                return item;
+              }
+            });
+            this.setState({ searchedBooks: mapped });
+          }
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none',
+          });
+        })
+        .catch((error) => {
+          this.setState({
+            activeLoading: false,
+            loadMessage: '',
+            display: 'none',
+          });
+          console.log(error);
+        });
+    } else {
+      this.setState({
+        activeLoading: false,
+        loadMessage: '',
+        display: 'none',
+        query: '',
+      });
+    }
+  };
+
+  // create the object of shelfs for the home page
+
   composeBooks(books) {
-    const { currentlyReading, wantToRead, read, none } = this.state;
-    books.forEach(item => {
-      if (item.shelf === "currentlyReading") {
+    const {
+      currentlyReading, wantToRead, read, none,
+    } = this.state;
+    books.forEach((item) => {
+      if (item.shelf === 'currentlyReading') {
         currentlyReading.books.push(item);
       }
-      if (item.shelf === "wantToRead") {
+      if (item.shelf === 'wantToRead') {
         wantToRead.books.push(item);
       }
-      if (item.shelf === "read") {
+      if (item.shelf === 'read') {
         read.books.push(item);
       } else {
         none.books.push(item);
@@ -122,64 +196,9 @@ class Main extends React.Component {
       wantToRead,
       read,
       none,
-      allBooks: books
+      allBooks: books,
     });
   }
-  // function for handling the message from the output
-  handleQuery = e => {
-    e.preventDefault();
-    const typed = e.target.value;
-    this.setState({
-      activeLoading: true,
-      loadMessage: "Searching books...",
-      display: "flex",
-      query: typed
-    });
-
-    if (typed.length > 0) {
-      search(typed)
-        .then(result => {
-          if (result.hasOwnProperty("error")) {
-            this.setState({ searchedBooks: [] });
-          } else {
-            const mapped = result.map(item => {
-              const cr = this.state.currentlyReading.books.map(item => item.id);
-              const wr = this.state.wantToRead.books.map(item => item.id);
-              const re = this.state.read.books.map(item => item.id);
-              if (cr.includes(item.id)) {
-                item.shelf = "currentlyReading";
-                return item;
-              }
-              if (wr.includes(item.id)) {
-                item.shelf = "wantToRead";
-                return item;
-              }
-              if (re.includes(item.id)) {
-                item.shelf = "read";
-                return item;
-              } else {
-                item.shelf = "none";
-                return item;
-              }
-            });
-            this.setState({ searchedBooks: mapped });
-          }
-          this.setState({
-            activeLoading: false,
-            loadMessage: "",
-            display: "none"
-          });
-        })
-        .catch(error => {
-          this.setState({
-            activeLoading: false,
-            loadMessage: "",
-            display: "none"
-          });
-          console.log(error);
-        });
-    }
-  };
 
   render() {
     const {
@@ -191,7 +210,7 @@ class Main extends React.Component {
       query,
       activeLoading,
       loadMessage,
-      display
+      display,
     } = this.state;
     return (
       <React.Fragment>
@@ -200,11 +219,11 @@ class Main extends React.Component {
           spinner
           text={loadMessage}
           style={{
-            width: "100%",
-            minHeight: "100%",
-            zIndex: "100",
-            position: "fixed",
-            display: display
+            width: '100%',
+            minHeight: '100%',
+            zIndex: '100',
+            position: 'fixed',
+            display,
           }}
         />
         <Header />

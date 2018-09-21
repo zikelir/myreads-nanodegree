@@ -1,7 +1,7 @@
-import React from "react";
-import BookCard from "../BookCard/BookCard.jsx";
+import React from 'react';
+import BookCard from '../BookCard/BookCard';
 
-const Shelf = props => {
+const Shelf = (props) => {
   const { shelf, updateBook } = props;
   return (
     shelf && (

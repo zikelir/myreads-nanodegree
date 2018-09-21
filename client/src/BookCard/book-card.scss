@@ -105,9 +105,9 @@
   }
 }
 
-.popup-content {
+.popup-book {
+  width: auto !important;
   z-index: 20 !important;
-  width: 15% !important;
   padding: $pd-medium !important;
   font-size: $fs-medium !important;
 }

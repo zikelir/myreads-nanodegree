@@ -1,33 +1,33 @@
-import React from "react";
-import Popup from "reactjs-popup";
+import React from 'react';
+import Popup from 'reactjs-popup';
 
 class BookCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedInput: "",
+      selectedInput: '',
       options: [
         {
-          value: "currentlyReading",
-          label: "Currently Reading"
+          value: 'currentlyReading',
+          label: 'Currently Reading',
         },
         {
-          value: "wantToRead",
-          label: "Want To Read"
+          value: 'wantToRead',
+          label: 'Want To Read',
         },
         {
-          value: "read",
-          label: "Read"
+          value: 'read',
+          label: 'Read',
         },
         {
-          value: "none",
-          label: "No Category"
+          value: 'none',
+          label: 'No Category',
         }
       ]
     };
   }
 
-  updateState = e => {
+  updateState = (e) => {
     e.preventDefault();
     const { book, updateBook } = this.props;
     const clickedItem = e.target.value;
@@ -39,16 +39,16 @@ class BookCard extends React.Component {
     const { options, selectedInput } = this.state;
     const image = book.imageLinks ? book.imageLinks.thumbnail : null;
     const colors = {
-      none: "#5f27cd",
-      wantToRead: "#005744",
-      read: "#b33939",
-      currentlyReading: "#273c75"
+      none: '#5f27cd',
+      wantToRead: '#005744',
+      read: '#b33939',
+      currentlyReading: '#273c75',
     };
     const label = {
-      none: "No category",
-      wantToRead: "Want to read",
-      read: "Already read",
-      currentlyReading: "Currently reading"
+      none: 'No category',
+      wantToRead: 'Want to read',
+      read: 'Already read',
+      currentlyReading: 'Currently reading',
     };
     return (
       <div className="book-card">
@@ -81,50 +81,57 @@ class BookCard extends React.Component {
         >
           <span>{book.title}</span>
           <span className="book-card__authors">
-            <b>From:</b>{" "}
+            <b>From:</b>
+            {' '}
             <i>
-              {book.authors ? book.authors.map(item => item) : "no authors"}
+              {book.authors ? book.authors.map(item => item) : 'no authors'}
             </i>
             <p>
-              <b>Status: </b> {label[book.shelf]}
+              <b>Status: </b>
+              { label[book.shelf] }
             </p>
           </span>
           <div className="book-card__popup">
             <Popup
               trigger={<div className="book-card__popup-open">i</div>}
-              position="center right"
+              className='popup-book'
             >
               <div className="book-card__popup-container">
-                <span>Book Summary</span>
+                <span><b>Book Summary</b></span>
+                <hr style={{ height: '2px', 'background-color': 'black' }} />
                 <ul>
-                  <li>Title: {book.title}</li>
                   <li>
-                    Author(s):{" "}
-                    {book.authors
-                      ? book.authors.map(item => item)
-                      : "no authors"}
+                    <b>Title:</b>
+                    {' '}
+                    {book.title}
                   </li>
                   <li>
-                    Preview on:
+                    <b>Author(s):</b>
+                    {' '}
+                    {book.authors
+                      ? book.authors.map(item => item)
+                      : 'no authors'}
+                  </li>
+                  <li>
+                    <b>Preview on:</b>
                     <a
-                      href={book.previewLink ? book.previewLink : ""}
+                      href={book.previewLink ? book.previewLink : ''}
                       target="blank"
                     >
-                      {" "}
-                      {book.previewLink ? "Preview" : "No preview"}
+                      {' '}
+                      {book.previewLink ? 'Preview' : 'No preview'}
                     </a>
                   </li>
                   <li>
-                    Language: {book.language ? book.language : "No language"}
+                    <b>Language:</b>
+                    {' '}
+                    { book.language ? book.language : 'No language' }
                   </li>
                   <li>
-                    Number of pages:{" "}
-                    {book.pageCount ? book.pageCount : "Not provided"}
+                    <b>Number of pages:</b>
+                    {' '}
+                    {book.pageCount ? book.pageCount : 'Not provided'}
                   </li>
-                  {/* <li>
-                    Description:{" "}
-                    {book.description ? book.description : "No language"}
-                  </li> */}
                 </ul>
               </div>
             </Popup>
