@@ -28,7 +28,7 @@ const Search = (props) => {
           >
             <div className="" id="popup-search">
               <b>Allowed Search Terms</b>
-              <hr style={{ height: '2px', 'background-color': 'black' }} />
+              <hr style={{ height: '2px', backgroundColor: 'black' }} />
               <i>{allowedTerms.map(item => `${item}, `)}</i>
             </div>
           </Popup>

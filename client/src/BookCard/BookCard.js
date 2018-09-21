@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import Popup from 'reactjs-popup';
 
-class BookCard extends React.Component {
+class BookCard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,7 +98,7 @@ class BookCard extends React.Component {
             >
               <div className="book-card__popup-container">
                 <span><b>Book Summary</b></span>
-                <hr style={{ height: '2px', 'background-color': 'black' }} />
+                <hr style={{ height: '2px', backgroundColor: 'black' }} />
                 <ul>
                   <li>
                     <b>Title:</b>
