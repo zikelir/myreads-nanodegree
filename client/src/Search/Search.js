@@ -34,10 +34,6 @@ const Search = (props) => {
           </Popup>
         </div>
       </div>
-      {/* <div className="search__allowed-terms">
-        <b>Allowed search terms:</b>
-        {allowedTerms.map(item => `${item} , `)}
-      </div> */}
       <div className="search__books">
         {books
         && query.length > 0
