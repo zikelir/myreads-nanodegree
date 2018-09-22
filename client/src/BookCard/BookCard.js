@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Popup from 'reactjs-popup';
 
-class BookCard extends PureComponent {
+class BookCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,8 +22,8 @@ class BookCard extends PureComponent {
         {
           value: 'none',
           label: 'No Category',
-        }
-      ]
+        },
+      ],
     };
   }
 

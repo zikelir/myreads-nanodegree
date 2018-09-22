@@ -23,37 +23,33 @@ class Main extends React.Component {
   }
 
   // mount the main component and props
-
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       activeLoading: true,
       loadMessage: 'Loading the application...',
       display: 'flex',
     });
-    getAll()
-      .then((response) => {
-        this.composeBooks(response);
-      })
-      .then(() => {
-        this.setState({
-          activeLoading: false,
-          loadMessage: '',
-          display: 'none',
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({
-          activeLoading: false,
-          loadMessage: '',
-          display: 'none',
-        });
+    try {
+      const response = await getAll()
+      this.composeBooks(response);
+      this.setState({
+        activeLoading: false,
+        loadMessage: '',
+        display: 'none',
       });
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        activeLoading: false,
+        loadMessage: '',
+        display: 'none',
+      });
+    }
   }
 
   // calls the api of update to update the book
 
-  updateBook = (book, newShelf) => {
+  updateBook = async (book, newShelf) => {
     const bookCopy = book;
     const currentShelf = book.shelf; // current book shelf
 
@@ -63,25 +59,17 @@ class Main extends React.Component {
         loadMessage: `Updating your book to: ${newShelf}`,
         display: 'flex',
       });
-      update(bookCopy, newShelf)
-        .then(() => {
-          this.updateShelf(bookCopy, currentShelf, newShelf);
-          this.setState({
-            activeLoading: true,
-            loadMessage: `Success on updating book to ${newShelf}`,
-            display: 'flex',
-          });
-        })
-        .then(() => {
-          this.setState({
-            activeLoading: false,
-            loadMessage: '',
-            display: 'none',
-          });
-        })
-        .catch((error) => {
-          console.log('error', error);
+      try {
+        await update(bookCopy, newShelf);
+        this.updateShelf(bookCopy, currentShelf, newShelf);
+        this.setState({
+          activeLoading: false,
+          loadMessage: '',
+          display: 'none',
         });
+      } catch (error) {
+        console.log('error', error);
+      }
     } else {
       alert('I am sorry but you are trying to move to the same shelf');
     }
@@ -108,7 +96,7 @@ class Main extends React.Component {
   };
 
   // function for handling the message from the output
-  handleQuery = (e) => {
+  handleQuery = async (e) => {
     // e.preventDefault();
     const typed = e.target.value;
     this.setState({
@@ -119,49 +107,48 @@ class Main extends React.Component {
     });
 
     if (typed.length > 0) {
-      search(typed)
-        .then((result) => {
-          if (result.hasOwnProperty('error')) {
-            this.setState({ searchedBooks: [] });
-          } else {
-            const mapped = result.map((item) => {
-              const { currentlyReading, wantToRead, read } = this.state;
-              const cr = currentlyReading.books.map(crItem => crItem.id);
-              const wr = wantToRead.books.map(wrItem => wrItem.id);
-              const re = read.books.map(reItem => reItem.id);
-              if (cr.includes(item.id)) {
-                item.shelf = 'currentlyReading';
-                return item;
-              }
-              if (wr.includes(item.id)) {
-                item.shelf = 'wantToRead';
-                return item;
-              }
-              if (re.includes(item.id)) {
-                item.shelf = 'read';
-                return item;
-              } else {
-                item.shelf = 'none';
-                return item;
-              }
-            });
-            this.setState({ searchedBooks: mapped });
-          }
-          this.setState({
-            activeLoading: false,
-            loadMessage: '',
-            display: 'none',
+      try {
+        const result = await search(typed);
+        if (result.hasOwnProperty('error')) {
+          this.setState({ searchedBooks: [] });
+        } else {
+          const mapped = result.map((item) => {
+            const { currentlyReading, wantToRead, read } = this.state;
+            const cr = currentlyReading.books.map(crItem => crItem.id);
+            const wr = wantToRead.books.map(wrItem => wrItem.id);
+            const re = read.books.map(reItem => reItem.id);
+            if (cr.includes(item.id)) {
+              item.shelf = 'currentlyReading';
+              return item;
+            }
+            if (wr.includes(item.id)) {
+              item.shelf = 'wantToRead';
+              return item;
+            }
+            if (re.includes(item.id)) {
+              item.shelf = 'read';
+              return item;
+            }
+            item.shelf = 'none';
+            return item;
           });
-        })
-        .catch((error) => {
-          this.setState({
-            activeLoading: false,
-            loadMessage: '',
-            display: 'none',
-          });
-          console.log(error);
+          this.setState({ searchedBooks: mapped });
+        }
+        this.setState({
+          activeLoading: false,
+          loadMessage: '',
+          display: 'none',
         });
+      } catch (error) {
+        this.setState({
+          activeLoading: false,
+          loadMessage: '',
+          display: 'none',
+        });
+        console.log(error);
+      }
     } else {
+      // to stop the loader
       this.setState({
         activeLoading: false,
         loadMessage: '',
